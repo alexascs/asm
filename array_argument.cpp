@@ -7,7 +7,7 @@ int int_output2=0;
 int int_output3=0;
 
 
-int int_input1=20;
+int int_input1=2000000;
 int int_input2=0;
 int int_input3=0;
 
@@ -39,13 +39,16 @@ int main()
 				    
 					"movl  %%ecx, %[output2]             	\n"
 					//"movl  lo, %[output1]             	\n"
-					
+					"pushl %%ecx							\n"
 					"pushl %%eax								\n"
+					
 					"call *%%eax        						 	\n" 
+					
 					"popl %%eax   									 \n"
+					"popl %%ecx   							 \n" 
 					
-					
-					"loop  lo             	\n"
+					"dec %%ecx             	\n"
+					"jnz	  lo             	\n"
          : [output1] "+m" (int_output1),[output2] "+m" (int_output2)
          : [pointer_mem] "r" (p),[pointer_function] "r" (&alexf),[input1] "m" (int_input1)
          : "eax", "ebx", "ebx"
